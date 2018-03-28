@@ -1,0 +1,625 @@
+﻿@charset "utf-8";
+
+/* formating of border radius for login,register, forgot password screens*/
+#border_forgot_passwordhead {
+    -moz-border-radius: 0px;
+    -webkit-border-radius:0px;
+    border-radius: 8px 8px 0 0;
+    border: -10px solid;
+	border-bottom-color:#614969;
+	border-width: 0px;
+	
+}
+#border_forgotpassword {
+  height:1px;
+	background-color:#614969;
+	
+}
+#border_loginhead {
+    -moz-border-radius: 0px;
+    -webkit-border-radius:0px;
+    border-radius: 8px 8px 0px 0px;
+    border: -10px solid;
+	border-bottom-left-radius: 0px;
+	border-bottom-right-radius: 0px;
+	border-bottom-color:#614969;
+	border-width: 0px;
+}
+
+#border_login {
+  height:1px;
+	background-color:#614969;
+	
+}
+
+#border_registerhead
+{
+ -moz-border-radius: 0px;
+    -webkit-border-radius:0px;
+    border-radius: 8px 8px 0 0;
+    border: -10px solid;	
+	border-bottom-left-radius: 0px;
+	border-bottom-right-radius: 0px;
+	border-bottom-color:#614969;
+	border-width: 0px;
+}
+#border_register {
+  height:1px;
+	background-color:#614969;
+	
+}
+
+.header{
+	
+	margin-bottom:20px;
+	height:70px;
+	background:transparent linear-gradient(rgb(255, 255, 255), rgb(200, 200, 200));
+	
+}
+.header img
+{
+	
+	margin-left:10px;
+	margin-top:8px;
+	width:198px;
+	height:42px;
+}
+/* container formating */
+#shared_container
+{
+	margin-top:-20px;
+}
+
+.shared-wishlist-header
+{
+	margin-bottom:20px;
+	margin-top:2px;
+	background-color:#ffffff;
+	padding-left:60px;
+}
+
+/*forgot password bact to sign in text formating */
+
+
+.backto_sign_in
+{
+	float: right;
+	color:#413f42;
+	font-size:11px;
+	 text-decoration: underline;
+}
+
+.login-heading,.forgot-heading,.register-heading{
+	
+	background-color:#f2e8f0;
+	color:#000000;
+	padding:5px 0;
+	border-style: solid;
+    border-bottom-color:#614969;
+	border-bottom-width:0px; 
+	border-top-color: #ffffff;
+	border-left-color: #ffffff;
+	border-right-color:#ffffff;
+	border-radius:1px; 
+	border-top-left-radius: 0px;
+	border-top-right-radius: 0px;
+	
+	
+}
+
+.lbllogin
+{
+	color:#666666;
+	font-weight: bold;
+}
+.lblforgotpassword
+{
+	color:#666666;
+	font-weight: bold;
+}
+
+.lblsign
+{
+	color:#666666;
+	
+}
+.lblor
+{
+	color:#423B42;
+	padding:5px;
+}
+.lblregister
+{
+	color:#666666;
+	font-weight: bold;
+}
+
+.lblsharedwishlist,.lblproductwishlist
+{
+	color:#424242;
+		font-weight: bold;
+}
+
+.lblproductname
+{
+	color:#4a4c4b;
+}
+.lblproductgranted
+{
+	color:#6b696c;
+}
+.lblproductheading
+{
+	color:#424242;
+	font-weight: bold;
+}
+.lblproductdescription
+{
+	color:#717171;
+	font-size:18px;
+	
+}
+.lblproductdescription1
+{
+	color:#9096A2;
+	font-size:15px;
+}
+
+.lblproductdescription2
+{
+	color:#B0B4BD;
+	font-size:14px;
+}
+
+.product-details-heading{
+	
+	
+	color:#000000;
+	padding:10px 0;
+	padding-right:5px;
+	
+}
+.shared-wishlist-heading,.product-wishlist-heading{
+background-color:#ffffff;
+	color:#000000;
+	padding:5px 0;
+	padding-left:40px;
+	padding-right:5px;
+	/*border-bottom: 1px solid #614969;*/
+	
+}
+.shared-wishlist-heading1
+{
+	background-color:#ffffff;
+	color:#000000;
+	
+	/*padding:40px;*/
+	padding:20px;
+	border-bottom: 1px solid #614969;
+	
+
+
+	/*padding-left:40px;
+	padding-right:5px;*/
+		
+}
+.border_sharedwishlsit,.border_productwishlist {
+	
+	 height:1px;
+	background-color:#614969;
+	/*border-width: 1px;*/
+	
+	
+}
+
+#border_bottom-sharedwishlsit {
+  height:1px;
+	background-color:#9197A3;
+	
+}
+
+img.img-rectangle
+{
+
+    display: block;
+    max-width: 80px;
+    max-height: 80px;
+    width: auto;
+    height: auto;
+     margin-left: auto;
+    margin-right: auto;
+}
+.img-outer-border
+{
+    float: right;
+    border:1px solid #60307C; 
+    width:82px;
+    height:82px;
+}
+
+
+.img-circle 
+{
+	border-radius:50% ;
+	background: transparent linear-gradient(135deg, rgb(75, 21, 109) 0%, rgb(75, 21, 109) 26%, rgb(195, 13, 47) 100%) no-repeat scroll 0% 0% !important;
+	padding: 3px;
+			
+}
+
+.shared_content
+{
+	padding-top:15px !important;
+	
+}
+.shared_content a
+{
+	color:black;
+}
+
+.product-wishlist-heading11{
+	
+	background-color:#ffffff;
+	color:#000000;
+	/*padding: 10px 100px 80px 20px;*/
+	
+	/*padding-left:40px;
+	padding-right:-20px;*/
+		
+}
+
+#border_bottom-productwishlsit {
+  height:1px;
+	background-color:#9197A3;
+	
+}
+
+.product-wishlist-heading1
+{
+	background-color:#e7dde5;
+	color:#000000;
+	/*padding:15px;
+	padding-top:30px;
+	padding-bottom:150px;*/
+
+}
+/*.product-details-heading1
+{
+	
+	background-color:#ffffff;
+	color:#000000;
+	padding:5px 0;
+		
+}*/
+
+.product-details-heading11
+{
+	/*background-color:#ffffff;
+	color:#000000;
+	padding:5px 0;
+	*/
+}
+
+.border_productdetails
+{
+	height:1px;
+	background-color:#614969;
+	
+}
+
+.border_bottom-productdetails
+{
+	 height:1px;
+	background-color:#424242;
+	
+}
+
+.login-details,.forgot-details{
+	background-color:#f2e8f0;	
+	padding:10px;
+	margin-bottom:10px;
+	border: 1px;
+	
+	border-radius:0 0 8px 8px;
+	padding-left: 20px;
+	padding-right: 20px;
+	
+}
+.register-details
+{
+	background-color:#f2e8f0;	
+	padding:10px;
+	margin-bottom:10px;
+	border: 1px;
+	padding-top:25px;
+	border-radius:0 0 8px 8px;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+.login-details form label{
+	font-weight:bold;
+	font-size:18px;
+	margin-top:15px !important;
+}
+
+.login-details form .checkbox label{
+	color:#4b156d;
+	font-size:12px;	
+	font-weight:lighter;
+}
+
+
+
+.btn-heading
+{
+	/*padding-left:20px;
+	padding-right:20px;
+	
+padding-top:20px;
+background-color:#ffffff;
+   
+    padding-bottom: 60px
+*/
+}
+
+.btn-claim:hover,.btn-buy:hover, .btn-mark:hover
+{
+	color:#FFFFFF;
+}
+
+.btn-mark{
+	background:transparent linear-gradient(rgb(161, 28, 143), rgb(240, 55, 63));
+	border:none;
+	
+	width:100%;
+	font-size:14px;
+	margin-top:10px;
+	margin-bottom:10px;
+
+}
+
+.btn-claim,.btn-buy
+{
+	background:transparent linear-gradient(rgb(161, 28, 143), rgb(240, 55, 63));
+	border:none;
+	font-weight:500;
+	color:#fff;	
+	width:90%;
+	height:45px;
+	font-size:14px;
+	margin-top:10px;
+	margin-bottom:10px;
+	
+}
+
+.btn-login,.btn-forgotpassword{
+	background-color:#4B156D;
+	border:none;
+	border-radius:5px;*/
+	font-weight:500;
+	
+	color:#fff;	
+	padding:8px 50px;
+	padding-left:60px;
+	padding-right:60px;
+	width:70%;
+	height:20%;
+}
+.btn-singup
+{
+	
+	
+	background-color:#4B156D;
+	border:none;
+	border-radius:5px;*/
+	font-weight:500;
+	font-size:12px;
+	color:#fff;	
+	padding:8px 50px;
+	padding-left:60px;
+	padding-right:60px;
+	width:70%;
+	height:20%;
+}
+
+
+.btn-register
+{
+	background-color:#ffffff;
+	border:1px;
+	border-color:#614969;
+	border-style: solid;
+	border-radius:5px;*/
+	font-weight:200;
+	
+	color:#6b567f;	
+	padding:8px 50px;
+	padding-left:60px;
+	padding-right:60px;
+	width:70%;
+	font-weight: bold;
+	height:20%;
+	
+	
+}
+.btn-facebook
+{
+	background-color:#3B589E;
+	border:none;
+	
+	font-weight:500;
+	
+	color:#fff;	
+	/*padding:6px 30px;
+	padding-left:20px;
+	padding-right:20px;*/
+	width:90%;
+	margin-top:5px;
+margin-bottom:5px;
+	 -moz-border-radius: 6px;
+    -webkit-border-radius:6px;
+    border-radius: 6px ;
+	
+	
+
+@media(max-width:1000px){
+	.btn-facebook, .btn-google, .btn-login, .btn-register,.btn-forgotpassword,.btn-signup,.btn-claim,.btn-buy,.btn-mark
+	{
+		width: 100% !important;
+		float: none !important;
+	}
+}
+	
+}
+.btn-google
+{
+	background-color:#DD4A38;
+	border:none;
+	font-weight:500;
+	
+	color:#fff;	
+	/*padding:6px 30px;
+	padding-left:20px;
+	padding-right:20px;*/
+	width:90%;
+	margin-top:5px;
+margin-bottom:5px;
+	-moz-border-radius: 6px;
+    -webkit-border-radius:6px;
+    border-radius: 6px ;
+	
+	
+}
+
+
+.btn-login:hover{
+	color:#fff;	
+	
+}
+
+
+
+.forgot-passwordlabel
+{
+	
+	
+	color:#413f42 !important;
+	font-weight:lighter;
+	
+	text-decoration: underline;
+	float: right;
+}
+
+.watch_image
+{
+		
+	/*width: 250px;
+    height:250px;
+    padding-top: 0px;*/
+   /* padding-bottom: 40px;*/
+  /*  margin:auto;*/
+	max-height: 200px;
+
+}
+.watch_image2
+{
+	
+	width:40px; 
+	height:40px;
+	
+}
+
+
+.logo-login{
+	margin-bottom:40px;	
+	background-color:#ffffff;
+}
+
+.login-details input[type="email"],.forgot-details input[type="email"],.login-details input[type="text"], .login-details input[type="password"]{
+	border-radius:8px;	
+	border-color:#614969;
+	
+
+
+}
+
+.register-details input[type="email"],.register-details input[type="text"], .register-details input[type="password"]{
+	border-radius:8px;	
+	border-color:#614969;
+	
+}
+
+/*  formatin of eye password icon and its button */
+
+
+/*for product details page */
+
+
+
+.product-description
+{
+	padding-top:30px;
+	padding-left:32px;
+	font-size:10px;
+	text-align: left;
+	background-color:#ffffff;
+	margin-top: 20px;
+}
+
+
+
+
+.profile-img img{
+	display: inline-block !important;
+}
+
+.profile-img p{
+	display: inline-block !important;
+	padding-left:20px;
+}
+
+/* for password open eye icon*/
+#password1 {
+    position: relative;
+}
+
+#password1 input[type="password"] {
+    padding-right: 30px;
+}
+
+#password1 .glyphicon {
+    right: 20px;
+    position: absolute;
+    top: 12px;
+}
+
+
+.nextarrow
+{
+
+	padding-top:20px;
+	margin-right:10px;
+}
+
+
+
+@media (max-width: 480px) {
+    .lblprname {
+       padding-left:0px;
+    }
+  }
+
+.lblprname
+{
+   /* padding-left: 120px;*/
+}
+
+.prdImage
+{
+    position: relative;top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+    }
+
+

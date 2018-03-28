@@ -1,0 +1,1 @@
+<a href="<?php echo site_url('admin/logout'); ?>">Logout</a>

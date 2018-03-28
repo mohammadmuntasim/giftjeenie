@@ -1,0 +1,28 @@
+#thcolor{
+
+background: #4b156d; 
+	color:#fff;
+
+}
+
+#save{
+	border-radius: 2px;
+	background: #808080; 
+	color:#fff;
+}
+#cancel{
+	border-radius: 2px;
+	background: #808080; 
+	color:#fff;
+}
+
+
+
+.search { position: relative; }
+.search input { text-indent: 40px;}
+.search .fa-search { 
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 15px;
+}

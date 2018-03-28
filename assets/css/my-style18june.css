@@ -1,0 +1,63 @@
+@charset "utf-8";
+
+.login-heading{
+	background: transparent linear-gradient(135deg, rgb(75, 21, 109) 0%, rgb(75, 21, 109) 26%, rgb(195, 13, 47) 100%) repeat scroll 0% 0%;
+	color:#fff;
+	padding:5px 0;
+}
+.login-details{
+	background-color:#fff;	
+	padding:30px;
+	margin-bottom:60px;
+}
+
+.login-details form label{
+	font-weight:bold;
+	font-size:18px;
+	margin-top:15px !important;
+}
+
+.login-details form .checkbox label{
+	color:#4b156d;
+	font-size:12px;	
+	font-weight:lighter;
+}
+
+.btn-login{
+	background-color:#9197a3;
+	border:none;
+	border-radius:25px;
+	font-weight:500;
+	font-size:18px;
+	color:#fff;	
+	padding:8px 50px;
+	
+}
+
+.btn-login:hover{
+	color:#fff;	
+	
+}
+
+a.forget-pass{
+	color:#4b156d !important;
+	font-size:12px;	
+	font-weight:lighter;
+	text-decoration:underline;
+	
+}
+
+.logo-login{
+	margin-bottom:60px;	
+}
+
+.login-details input[type="email"], .login-details input[type="password"]{
+	border-radius:10px;	
+}
+
+/*----- After Logged In Screen -----*/
+
+.header-backend{
+	background: transparent linear-gradient(135deg, rgb(75, 21, 109) 0%, rgb(75, 21, 109) 26%, rgb(195, 13, 47) 100%) repeat scroll 0% 0%;
+	padding:15px 0;
+}

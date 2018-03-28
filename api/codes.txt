@@ -1,0 +1,128 @@
+user_status_codes
+
+1		user_inactive
+2		user_active
+
+user_role_codes
+
+3		role_admin
+4		role_user
+
+user_source_codes
+
+5		email
+6		facebook
+7		google+
+
+product_source_codes
+
+8		user
+9		amazon
+10 		google
+11 		admin
+
+wishlist_status_codes
+
+12		product not granted
+13		product granted
+18		product not claimed
+19		product claimed
+
+message_status_codes
+
+14		text message
+15		video message
+
+message_desc_codes
+
+16		gift message
+17		thank you message
+
+notification_status
+
+20		unread notification
+21		read notification
+
+success_codes
+
+150		user logged out
+151		password successfully reset
+152		user successfully activated
+153		user logged in
+154		user registered successfully
+155		product added successfully
+156 	product deleted successfully
+157		wishlist created successfully
+158		product added to wishlist successfully
+159		product removed from wishlist successfully
+160		wishlist successfully deleted
+161		user deleted successfully
+162		wishlist shared successfully
+163		wishlist deleted successfully
+164		message created successfully
+165		gift granted successfully
+166		gift message updated
+167		thank you message updated
+168		delivery details updated
+169		order details updated
+170		user updated
+171		product updated
+173		product marked as claimed
+174		product marked as unclaimed
+175		product marked as granted
+176		product marked as not granted
+177		product added to grant list successfully
+178		product removed from grant list successfully
+179		feedback received
+180		notification added successfully
+181		notification marked as read
+182		notification cleared successfully
+183		user has no notifications
+184		user status updated successfully
+185		password changed
+186		product deleted
+187		message deleted successfully
+188     user has no feedbacks
+
+error_codes
+
+100		user is inactive
+101		email id does not exist
+102		user activation failed
+103		user registration failed
+104		user with same email exists
+105		user login failed
+106 	token not present
+107		token expired
+108		could not add product
+109		invalid product filter option
+110 	invalid product id
+111		could not create wishlist
+112		could not add product to wishlist
+113		could not remove product from the wishlist
+114		could not share wishlist
+115		user has not shared any wishlists yet
+116		no wishlist has been shared with this user yet
+117		user has not created any wishlists
+118		message could not be created
+119 	invalid message id entered
+120		failed to grant gift
+121		user has not given any gifts yet
+122		user has not received any gifts yet
+123		invalid gift id entered
+124		invalid wishlist id entered
+125		failed to update user
+126		failed to update product
+127		unable to mark product as claimed
+128		unable to mark product as unclaimed
+129		unable to mark product as granted
+130		unable to mark product as not granted
+131		unable to add product to grant list
+132		user updation fail
+133		feedback failed
+134		failed to add notification
+135		failed to mark notification as read
+136		failed to clear notification
+137		user status updation failed
+138		password not changed
+139 	invalid feedback id

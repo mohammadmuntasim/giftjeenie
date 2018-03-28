@@ -1,0 +1,262 @@
+<?php
+
+class Wishlist extends CI_Controller {
+
+	/**
+    * Responsable for auto load the model
+    * @return void
+    */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('Users_model');
+		$this->load->model('wishlist_model');
+		$this->load->model('product_model');
+        $this->load->library('form_validation');
+
+
+    }
+    /**
+    * Check if the user is logged in, if he's not, 
+    * send him to the login page
+    * @return void
+    */  
+    function index()
+    {   	
+        if($this->session->userdata('is_logged_in')){
+		
+			
+            redirect('wishlist/shared_wishlist');
+        }else{ 
+            
+            $this->load->view('frontend/login');   
+        }
+    }
+    /**
+    * check the username and the password with the database
+    * @return void
+    */
+    function validate_credentials()
+    {   
+
+        $email = $this->input->post('email');
+        $password = $this->input->post('password');
+
+        $result = $this->Users_model->validate($email, $password);
+        
+        if( isset( $result->message_code ) && $result->message_code == 153 )
+        {
+            $user_id = $result->id;
+            $token = $result->token;
+
+            $auth = base64_encode( $user_id . ':' . $token );
+
+            $this->session->set_userdata( array( 'auth' => $auth,'user_id'=>$user_id, 'is_logged_in' => true ) );
+
+            redirect('wishlist/shared_wishlist');
+        }
+        else if( isset( $result->message_code ) && $result->message_code == 100 )// inactive user
+        {
+            $data['message_error'] = 2;
+            $this->load->view('frontend/login', $data);
+        }
+        else // incorrect username or password
+        {
+            $data['message_error'] = 1;
+            $this->load->view('frontend/login', $data);
+        }
+    }   
+    /**
+    * Register new user and store it in the database
+    * @return void
+    */  
+    function register()
+    {
+        $data['title'] = 'Register';
+        
+        // field name, error message, validation rules
+        $this->form_validation->set_rules('first_name', 'Name', 'trim|required');
+        $this->form_validation->set_rules('last_name', 'Last Name', 'trim|required');
+        $this->form_validation->set_rules('email', 'Email Address', 'trim|required|valid_email');
+        $this->form_validation->set_error_delimiters('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><strong>', '</strong></div>');
+
+        
+        if(isset($_POST['email'])) 
+        {        
+               
+        
+            if($this->form_validation->run() == TRUE)
+            {
+                
+                $new_member_insert_data = array(
+                    'first_name' => $this->input->post('first_name'),
+                    'last_name' => $this->input->post('last_name'),
+                    'email' => $this->input->post('email'),
+                    'source'=>5,
+                    'profile_picture'=>'',         
+                    'password' => $this->input->post('password'),
+                    'created_on'=>date('Y-m-d H:i:s')
+                );
+
+                $result = $this->Users_model->create_member($new_member_insert_data); //print_r($result);die;
+                if( isset( $result->message_code ) && $result->message_code == 154 )
+                {
+                    $this->session->set_flashdata('success_msg','Registration successful'); 
+                    //changes done on 02 sept 2016
+                $result1 = $this->Users_model->validate($this->input->post('email'), $this->input->post('password'));
+                
+                if( isset( $result1->message_code ) && $result1->message_code == 153 )
+                {
+                    $user_id = $result1->id;
+                    $token = $result1->token;
+
+                    $auth = base64_encode( $user_id . ':' . $token );
+
+                    $this->session->set_userdata( array( 'auth' => $auth,'user_id'=>$user_id, 'is_logged_in' => true ) );
+                    //print_r($this->session->all_userdata());die;
+                    redirect('wishlist/shared_wishlist');
+                }                                            
+                    //redirect('wishlist/logout');
+                    
+                }
+
+                elseif( isset( $result ) && $result->message_code == 104 ) // User with same email exists
+                {
+                    $data['message_error'] = 1;
+                    
+                }
+            }
+        }
+           
+            $this->load->view('frontend/register_user',$data); 
+        
+    }
+
+    /**
+    * Forgot password functionality.
+    * @return void
+    */
+    public function forgot_password()
+    {   
+
+        $this->form_validation->set_rules('email', 'Email Address', 'trim|required|valid_email');
+
+    if(isset($_POST['email'])) 
+        {
+        
+        if ($this->form_validation->run() == FALSE)
+            {
+                
+                $this->load->view('frontend/forgotpassword_form');
+         
+            }else
+            { 
+                $data = array('email'=>$this->input->post('email'));
+               $this->Users_model->forgot_password($data);
+               $this->session->set_flashdata('success_msg','Password successfully sent on your email.');
+                redirect('wishlist/logout');
+            }
+        }
+        $this->load->view('frontend/forgotpassword_form');
+    }
+
+     public function shared_wishlist()
+    {   
+	    $data['title'] = 'Shared wishlist';
+		$user_id = $this->session->userdata('user_id');
+
+		$data['shared_wishlist']=$this->wishlist_model->get_shared_wishlist($user_id);
+   
+        $result = $this->Users_model->get_userstatus($user_id);
+                
+        if($result->status==2)
+        {
+            $this->load->view('frontend/sharedwishlist_form',$data);
+        }
+        else
+        {
+            $data['message_error'] = 2;
+            $this->load->view('frontend/login', $data);
+             
+        }
+    }
+
+    public function product_wishlist()
+    { 
+		$data['title'] = 'Product wishlist';
+
+        $wishlist_id = $this->uri->segment(3);
+
+        $data['wishlist_info'] = $this->wishlist_model->getproductsunderwishlist($wishlist_id);
+
+		$data['products'] = $data['wishlist_info']->details; 
+
+        $user_id = $this->session->userdata('user_id');
+        $result = $this->Users_model->get_userstatus($user_id);
+        
+        if($result->status==2)
+        {
+            $this->load->view('frontend/productwishlist_form',$data);
+        }
+        else
+        {
+             $data['message_error'] = 2;
+            $this->load->view('frontend/login', $data);
+        }
+    }
+
+    public function product_details()
+    {   
+        $data['title'] = 'Product details';
+        $product_id = $this->uri->segment(3);
+		 
+		$data['product_details'] = $this->product_model->getproductdatabyid($product_id);
+        parse_str($_SERVER['QUERY_STRING'], $_GET);
+        $wishlist_id = $_GET['wid'];
+
+        $data['wishlist_info'] = $this->wishlist_model->getproductsunderwishlist($wishlist_id);
+
+        $user_id = $this->session->userdata('user_id');
+        $result = $this->Users_model->get_userstatus($user_id);
+        
+        if($result->status==2)
+        {
+            $this->load->view('frontend/productdetails_form',$data);
+        }
+        else
+        {
+             $data['message_error'] = 2;
+            $this->load->view('frontend/login', $data);
+        }
+    }
+
+    function claim_product()
+    {   
+        $wishlist_id = $this->input->post('wishlist_id');
+        $product_id = $this->input->post('product_id');
+        
+        $data['claim_product'] = $this->product_model->mark_product_as_claimed( $wishlist_id, $product_id );
+   
+        return $data['claim_product'];       
+    }
+	 function grant_product()
+    {   
+        $wishlist_id = $this->input->post('wishlist_id');
+        $product_id = $this->input->post('product_id');
+		 
+		$comment = $this->input->post('comment');
+		$videofile = $this->input->post('videofile');
+        
+        $data['grant_product'] = $this->product_model->mark_product_as_granted( $wishlist_id, $product_id, $comment, $videofile);
+   
+        return $data['grant_product'];       
+    }
+	
+	function logout()
+	{
+		$this->session->sess_destroy();
+		redirect('login');
+	}
+    
+    
+}

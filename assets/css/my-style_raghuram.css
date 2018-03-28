@@ -1,0 +1,176 @@
+@charset "utf-8";
+
+
+
+.form-control
+{
+	
+	width:760px;
+	height:40px;
+	
+}
+.form-control1
+{
+	
+	width:400px;
+	height:40px;
+	
+}
+
+
+.login-heading{
+	background: transparent linear-gradient(135deg, rgb(75, 21, 109) 0%, rgb(75, 21, 109) 26%, rgb(195, 13, 47) 100%) repeat scroll 0% 0%;
+	color:#fff;
+	padding:5px 0;
+}
+.login-details{
+	background-color:#fff;	
+	padding:30px;
+	margin-bottom:60px;
+}
+
+.login-details form label{
+	font-weight:bold;
+	font-size:18px;
+	margin-top:15px !important;
+}
+
+.login-details form .checkbox label{
+	color:#4b156d;
+	font-size:12px;	
+	font-weight:lighter;
+}
+
+.btn-login{
+	background-color:#9197a3;
+	border:none;
+	border-radius:25px;
+	font-weight:500;
+	font-size:18px;
+	color:#fff;	
+	padding:8px 50px;
+	
+}
+
+.btn-login:hover{
+	color:#fff;	
+	
+}
+
+a.forget-pass{
+	color:#4b156d !important;
+	font-size:12px;	
+	font-weight:lighter;
+	text-decoration:underline;
+	
+}
+
+.logo-login{
+	margin-bottom:60px;	
+}
+
+.login-details input[type="email"], .login-details input[type="password"]{
+	border-radius:10px;	
+}
+
+/*----- After Logged In Screen -----*/
+
+.header-backend{
+	background: transparent linear-gradient(135deg, rgb(75, 21, 109) 0%, rgb(75, 21, 109) 26%, rgb(195, 13, 47) 100%) repeat scroll 0% 0%;
+	padding:30px 0;
+	color:#fff;
+}
+
+.heading-title{
+	padding-top:15px;	
+}
+
+.arrow-btn{
+	padding-top:13px;	
+}
+
+.arrow-btn i{
+	font-size:24px;	
+	vertical-align:middle;
+}
+
+.arrow-btn button{
+	font-size:16px;	
+}
+
+/*----  Left Menu -------*/
+
+.left-menu{
+	background-color:#fff;	
+	padding:60px 0;
+	text-align:center;
+	height:700px;
+	
+}
+
+.left-menu ul{
+	list-style-type:none;
+	padding:0;
+	margin:0;	
+}
+
+.left-menu ul li{
+	margin-top:50px;
+}	
+
+.left-menu ul li a{
+	color:#9197a3;	
+	text-decoration:none;
+}
+
+.left-menu ul li.active-menu a{
+	
+}
+
+/*---- Main Content with Forms and Data ----*/
+
+.main-content{
+	padding:20px 0px;	
+}
+
+.top-form{
+	background-color:#fff;	
+	padding:10px;
+}
+
+.main-image{
+	background-color:#f4f4f4;	
+	padding:60px 0;
+}
+
+.product-form{
+	padding-top:5px;	
+}
+
+.product-form input{
+	height:30px;
+}
+
+.product-form .btn-product{
+	background-color:#9197a3;
+	padding:3px 30px;
+	color:#fff;	
+	margin-top:26px;
+}
+
+.data-table{
+	margin-top:10px;	
+}
+
+.data-table > table > thead > tr > th{
+	background-color:#4b156d;	
+	text-align:center;
+	color:#fff;	
+}
+
+.data-table > table > tbody > tr > td{
+	text-align:center;	
+}
+.data-table > table > tbody > tr:nth-child(odd) > td{
+	background-color:#9197a3;	
+}

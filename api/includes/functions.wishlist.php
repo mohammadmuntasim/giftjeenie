@@ -1,0 +1,356 @@
+<?php
+use \Psr\Http\Message\ServerRequestInterface as Request;
+use \Psr\Http\Message\ResponseInterface as Response;
+
+require  dirname( __DIR__ ) . '/classes/wishlist.class.php';
+
+function giftj_create_wishlist( Request $request, Response $response )
+{
+	$headers = $request->getHeaders();
+	$user_id = $headers['PHP_AUTH_USER'][0];
+
+	$body = $request->getParsedBody();
+
+	$name = $body['name'];
+	$is_group = $body['is_group'];
+	$friends_id = $body['friends_id'];
+	if(strpos($friends_id, ',') !== false) {
+		$friends_id = explode(',', $friends_id);
+	}
+	$meta['created_on'] = date('Y-m-d H:i:s');
+	$meta['created_by'] = $user_id;
+	$meta['last_modified_on'] = $meta['created_on'];
+	$meta['last_modified_by'] = $user_id;
+
+	$wishlist = new Wishlist();
+	$wishlist->setName( $name );
+	$wishlist->setMeta( $meta );
+
+	$db = new Database();
+	if( null !== $is_group && $is_group == 'true') {
+		$data = $db->createWishlist($wishlist, $user_id, true, $friends_id);
+
+	} else {
+		$data = $db->createWishlist($wishlist, $user_id);
+
+	}
+	$db->disconnect();
+
+	return $response->withJson( $data, 200 );
+}
+
+function giftj_wishlist_add_product( Request $request, Response $response )
+{
+	$headers = $request->getHeaders();
+	$user_id = $headers['PHP_AUTH_USER'][0];
+	$wishlist_id = $request->getAttribute('id');
+	$product_id = $request->getAttribute('pid');
+
+	$db = new Database();
+	$data = $db->addProductToWishlist( $wishlist_id, $product_id, $user_id );
+	$db->disconnect();
+
+	return $response->withJson( $data, 200 );	
+}
+
+function giftj_wishlist_remove_product( Request $request, Response $response )
+{
+	$wishlist_id = $request->getAttribute('id');
+	$product_id = $request->getAttribute('pid');
+
+	$db = new Database();
+	$data = $db->removeProductFromWishlist( $wishlist_id, $product_id );
+	$db->disconnect();
+
+	return $response->withJson( $data, 200 );	
+}
+
+function giftj_get_wishlists( Request $request, Response $response, $is_group = false )
+{
+
+	if( NULL !== $request->getAttribute('id') )
+	{
+		// echo "Hie";exit;
+		$user_id = $request->getAttribute('id');
+	}
+	else
+	{
+		// echo "Hello";exit;
+		$headers = $request->getHeaders();
+		$user_id = $headers['PHP_AUTH_USER'][0];
+	}
+// var_dump($user_id);exit;
+	$db = new Database();
+	$data = $db->getWishlists( $user_id, false, false, false, $is_group );
+	$db->disconnect();
+
+	return $response->withJson( $data, 200 )->withHeader( 'ETag', md5( json_encode( $data ) ) );	
+}
+
+function giftj_get_group_wishlists( Request $request, Response $response )
+{
+	return giftj_get_wishlists($request, $response, $is_group = true);
+}
+
+function giftj_get_all_wishlists( Request $request, Response $response )
+{
+	if( NULL !== $request->getAttribute('id') )
+	{
+		$user_id = $request->getAttribute('id');
+	}
+	else
+	{
+		$headers = $request->getHeaders();
+		$user_id = $headers['PHP_AUTH_USER'][0];
+	}
+
+	$db = new Database();
+	$data = $db->getWishlists();
+	$db->disconnect();
+
+	return $response->withJson( $data, 200 )->withHeader( 'ETag', md5( json_encode( $data ) ) );	
+}
+
+function giftj_get_wishlists_sharedby( Request $request, Response $response )
+{
+	if( NULL !== $request->getAttribute('id') )
+	{
+		$user_id = $request->getAttribute('id');
+	}
+	else
+	{
+		$headers = $request->getHeaders();
+		$user_id = $headers['PHP_AUTH_USER'][0];
+	}
+
+	$db = new Database();
+	$data = $db->getWishlists( $user_id, true );
+	$db->disconnect();
+
+	return $response->withJson( $data, 200 )->withHeader( 'ETag', md5( json_encode( $data ) ) );	
+}
+
+function giftj_get_wishlists_sharedwith( Request $request, Response $response )
+{
+	if( NULL !== $request->getAttribute('id') )
+	{
+		$user_id = $request->getAttribute('id');
+	}
+	else
+	{
+		$headers = $request->getHeaders();
+		$user_id = $headers['PHP_AUTH_USER'][0];
+	}
+
+	$db = new Database();
+	$data = $db->getWishlists( $user_id, false, true );
+	$db->disconnect();
+
+	return $response->withJson( $data, 200 )->withHeader( 'ETag', md5( json_encode( $data ) ) );	
+}
+
+function giftj_get_wishlist( Request $request, Response $response )
+{
+	$wishlist_id = $request->getAttribute('id');
+
+	$db = new Database();
+	$data = $db->getWishlists( $wishlist_id, false, false, true );
+	$db->disconnect();
+
+	return $response->withJson( $data, 200 )->withHeader( 'ETag', md5( json_encode( $data ) ) );	
+}
+
+function giftj_delete_wishlist( Request $request, Response $response )
+{
+	$wishlist_id = $request->getAttribute('id');
+
+	$db = new Database();
+	$data = $db->deleteWishlist( $wishlist_id );
+	$db->disconnect();
+
+	return $response->withJson( $data, 200 );
+}
+
+function giftj_wishlist_share( Request $request, Response $response )
+{
+	$headers = $request->getHeaders();
+	$body = $request->getParsedBody();
+
+	$wishlist_id = $body['wishlist_id'];
+	
+	// $user_id_by = $body['shared_by'];			// old code
+	// $user_id_to = $headers['PHP_AUTH_USER'][0];  // ood code
+
+	$user_id_to = $body['shared_to'];				// modify on 13 Feb
+	$user_id_by = $headers['PHP_AUTH_USER'][0];		// modify on 13 Feb
+
+	$db = new Database();
+	$data = $db->shareWishlist( $wishlist_id, $user_id_by, $user_id_to);
+	$db->disconnect();
+
+	return $response->withJson( $data, 200 );
+}
+
+function giftj_get_wishlists_shared( Request $request, Response $response )
+{
+	//echo "Hie";exit;
+	$headers = $request->getHeaders();
+	$user_id = $headers['PHP_AUTH_USER'][0];
+
+	$db = new Database();
+	$data = $db->getSharedWishlists( $user_id );
+	//var_dump($data);exit;
+	$db->disconnect();
+
+	return $response->withJson( $data, 200 )->withHeader( 'ETag', md5( json_encode( $data ) ) );	
+}
+
+
+function giftj_wishlist_mark_claim( Request $request, Response $response )
+{
+	$headers = $request->getHeaders();
+	$user_id = $headers['PHP_AUTH_USER'][0];
+
+	$wishlist_id = $request->getAttribute('id');
+	$product_id = $request->getAttribute('pid');
+
+	$db = new Database();
+	$data = $db->toggleClaimed( $user_id, $wishlist_id, $product_id, true );
+	$db->disconnect();
+
+	return $response->withJson( $data, 200 );
+}
+
+function giftj_wishlist_unmark_claim( Request $request, Response $response )
+{
+	$headers = $request->getHeaders();
+	$user_id = $headers['PHP_AUTH_USER'][0];
+
+	$wishlist_id = $request->getAttribute('id');
+	$product_id = $request->getAttribute('pid');
+
+	$db = new Database();
+	$data = $db->toggleClaimed( $user_id, $wishlist_id, $product_id, false );
+	$db->disconnect();
+
+	return $response->withJson( $data, 200 );
+}
+
+function giftj_wishlist_mark_grant( Request $request, Response $response )
+{
+	$headers = $request->getHeaders();
+	$user_id = $headers['PHP_AUTH_USER'][0];
+
+	$wishlist_id = $request->getAttribute('id');
+	$product_id = $request->getAttribute('pid');
+
+	$db = new Database();
+	$data = $db->toggleGranted( $user_id, $wishlist_id, $product_id, true );
+	$db->disconnect();
+
+	return $response->withJson( $data, 200 );
+}
+
+function giftj_wishlist_unmark_grant( Request $request, Response $response )
+{
+	$headers = $request->getHeaders();
+	$user_id = $headers['PHP_AUTH_USER'][0];
+
+	$wishlist_id = $request->getAttribute('id');
+	$product_id = $request->getAttribute('pid');
+
+	$db = new Database();
+	$data = $db->toggleGranted( $user_id, $wishlist_id, $product_id, false );
+	$db->disconnect();
+
+	return $response->withJson( $data, 200 );
+}
+
+function giftj_wishlist_recent( Request $request, Response $response )
+{
+	$wishlist_id = $request->getAttribute('wishlist_id');
+	$headers = $request->getHeaders();
+	$db = new Database();
+var_dump($wishlist_id);exit;
+    $data = $db->getRecentWishlists($wishlist_id, $headers['PHP_AUTH_USER'][0]);
+    
+    $db->disconnect();
+
+    return $response->withJson($data, 200)->withHeader('ETag', md5(json_encode($data)));
+
+}
+
+
+function giftj_wishlist_recentinsert(Request $request, Response $response)
+{
+    $body = $request->getParsedBody();
+    $headers = $request->getHeaders();
+    // var_dump($headers);exit;
+    $user_id = $body['user_id'];
+
+    $last_visited_id = $body['last_visited_id'];
+// var_dump($user_id);
+// var_dump($last_visited_id);exit;
+    $db = new Database();
+
+    $data = $db->insertrecent($user_id, $last_visited_id, $headers['PHP_AUTH_USER'][0]);
+
+    return $response->withJson($data, 200);
+}
+
+function giftj_wishlist_recent_list(Request $request, Response $response)
+{
+    $body = $request->getParsedBody();
+    $headers = $request->getHeaders();
+    // var_dump($headers);exit;
+    $user_id = $body['user_id'];
+
+    // $last_visited_id = $body['last_visited_id'];
+// var_dump($user_id);
+// var_dump($last_visited_id);exit;
+    $db = new Database();
+
+    $data = $db->listrecent($user_id, $headers['PHP_AUTH_USER'][0]);
+
+    return $response->withJson($data, 200);
+}
+
+
+function giftj_wishlist_recent_details(Request $request, Response $response)
+{
+    $body = $request->getParsedBody();
+    $headers = $request->getHeaders();
+    // var_dump($headers);exit;
+    // $user_id = $body['user_id'];
+
+    $wishlist_id = $body['wishlist_id'];
+// var_dump($user_id);
+// var_dump($last_visited_id);exit;
+    $db = new Database();
+
+    $data = $db->detailsrecent($wishlist_id, $headers['PHP_AUTH_USER'][0]);
+
+    return $response->withJson($data, 200);
+}
+
+
+function giftj_wishlist_add_group(Request $request, Response $response)
+{
+    $body = $request->getParsedBody();
+    $headers = $request->getHeaders();
+    
+    $user_id = $body['user_id'];
+
+    $wishlist_name = $body['wishlist_name'];
+
+    // $group = $body['group'];
+    $group = explode(',', $body['group']);
+// var_dump($user_id);
+// var_dump($group);
+// var_dump($wishlist_id);exit;
+    $db = new Database();
+
+    $data = $db->addgroup($user_id, $wishlist_name, $group, $headers['PHP_AUTH_USER'][0]);
+
+    return $response->withJson($data, 200);
+}
